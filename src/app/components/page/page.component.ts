@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { PageFacade } from './page.facade';
+import { FlyingHeartsComponent } from '../flying-hearts/flying-hearts.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @Component({
   selector: 'page',
@@ -8,7 +10,7 @@ import { PageFacade } from './page.facade';
   styleUrls: ['./page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FlyingHeartsComponent, LazyLoadImageModule],
   providers: [PageFacade],
 })
 export class PageComponent {

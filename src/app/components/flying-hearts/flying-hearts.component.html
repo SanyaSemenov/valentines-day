@@ -1,0 +1,4 @@
+<div class="hearts">
+	<div *ngFor="let item of array; let i = index"
+		class="hearts__item">{{i % 2 === 0 ? '❤' : '♥'}}</div>
+</div>

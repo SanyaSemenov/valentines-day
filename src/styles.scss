@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; position: relative; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .preloader {
@@ -21,6 +21,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 75px;
     height: 75px;
     animation: preloader 1s ease infinite;
+
+    .prealoader--hidden & {
+      animation-play-state: paused;
+    }
   }
 }
 
