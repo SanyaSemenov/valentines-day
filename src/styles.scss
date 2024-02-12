@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.preloader {
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+
+  &--hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &__image {
+    width: 75px;
+    height: 75px;
+    animation: preloader 1s ease infinite;
+  }
+}
+
+@keyframes preloader {
+  0% {
+    transform: scale(1);
+  }
+
+  75% {
+    transform: scale(2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
