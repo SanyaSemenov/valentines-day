@@ -31,17 +31,17 @@ $size: 40px;
 
 		@for $i from 1 through $total {
 			$random-x: random(1000000) * 0.0001vw;
-			$random-offset: randomNum(-50000, 50000) * 0.0001vw;
+			$random-offset: (random(1) * 2 - 1) * randomNum(20000, 50000) * 0.0001vw;
 			$random-x-end: $random-x + $random-offset;
 			$random-scale: random(5000) * 0.0001 + 0.5;
-			$fall-duration: randomNum(10, 30) * 1s;
+			$fall-duration: (1.5 - $random-scale) * 20s;
 			$fall-delay: random(30) * -1s;
 
 			&:nth-child(#{$i}) {
-				opacity: random(7000) * 0.0001 + 0.3;
+				opacity: $random-scale * 0.6 + 0.3;
 				transform: translateX($random-x) scale($random-scale);
 				animation-name: fall-#{$i}, fall-down;
-				animation-duration: $fall-duration / 3, $fall-duration;
+				animation-duration: $fall-duration * (random(30) * 0.01 + 0.2), $fall-duration;
 				animation-delay: $fall-delay, $fall-delay;
 				animation-timing-function: ease-in-out, linear;
 				animation-iteration-count: infinite, infinite;
