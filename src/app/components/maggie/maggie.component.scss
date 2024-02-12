@@ -46,4 +46,26 @@ $host: '.maggie';
       bottom: 35%;
     }
   }
+
+  &__eye {
+    position: absolute;
+    color: red;
+    opacity: 0;
+    top: 24%;
+    transform: translateX(-50%);
+    font-size: 56px;
+    transition: opacity 0.3s ease-in-out;
+
+    #{$host}__eyes--visible & {
+      opacity: 1;
+    }
+
+    &--1 {
+      left: calc(48% - 48px);
+    }
+
+    &--2 {
+      left: calc(48% + 48px);
+    }
+  }
 }
