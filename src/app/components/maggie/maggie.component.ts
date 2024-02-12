@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding, inject } from '
 import { PageFacade } from '../page';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { environment } from 'src/environment/environment';
+import { PopupComponent } from '../popup/popup.component';
+import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
 
 @Component({
   selector: 'maggie',
@@ -10,7 +12,8 @@ import { environment } from 'src/environment/environment';
   styleUrls: ['./maggie.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, LazyLoadImageModule],
+  imports: [CommonModule, LazyLoadImageModule, PopupComponent],
+  animations: [fadeInOut({ withTransform: false })]
 })
 export class MaggieComponent {
   @Input() angry = false;

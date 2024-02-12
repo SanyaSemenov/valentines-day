@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageComponent } from './components/page/page.component';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { PageComponent } from './components/page/page.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     PageComponent
   ],
   providers: [],

@@ -24,7 +24,6 @@
 					bottom: 100%;
 					top: initial;
 					border-top: none;
-					border-bottom: 15px solid #000;
 				}
 
 				&::after {
@@ -34,12 +33,11 @@
 		}
 	}
 
-	&--Top {
+	&--top {
 		span {
 			&::after,
 			&::before {
 				top: 100%;
-				border-top: 15px solid #000;
 			}
 
 			&::after {
@@ -48,12 +46,11 @@
 		}
 	}
 
-	&--Bottom {
+	&--bottom {
 		span {
 			&::after,
 			&::before {
 				bottom: 100%;
-				border-bottom: 15px solid #000;
 			}
 
 			&::after {
@@ -65,22 +62,25 @@
 	&__wrapper {
 		display: flex;
 
-		&--Top {
+		&--top {
 			flex-direction: column;
 		}
 
-		&--Bottom {
+		&--bottom {
 			flex-direction: column-reverse;
 		}
 	}
 
 	span {
 		display: inline-block;
-		padding: 5px 10px;
+		padding: 16px 24px;
 		border-radius: 10px;
-		border: 1px solid;
+		font-size: 24px;
+		line-height: 1.4;
 		background: #fff;
 		position: relative;
+		box-shadow: 0 5px 15px #be57b9;
+		color: #5d0e59;
 
 		&::after,
 		&::before {
@@ -89,17 +89,16 @@
 			width: 40px;
 			height: 15px;
 			// top: 100%;
-			left: 50%;
+			left: var(--offset, 50%);
 			transform: translateX(-50%);
 			border-left: 20px solid transparent;
 			border-right: 20px solid transparent;
-			// border-top: 15px solid #000;
+			transition: left 0.3s ease-in-out;
 		}
 
 		&::after {
 			border-left-width: 18.5px;
 			border-right-width: 18.5px;
-			// border-top: 13.5px solid #fff;
 			width: 37px;
 		}
 	}

@@ -1,8 +1,20 @@
 <ng-container *ngIf="{
   step: facade.step$ | async
 } as context">
-  <div class="maggie">
+  <div class="maggie" [class.maggie--angry]="context.step?.maggie?.angry">
     <div class="maggie__shadow"></div>
-    <img class="maggie__image" [lazyLoad]="context.step?.maggie?.angry ? angryImage : dafaultImage">
+    <img
+      *ngIf="context.step?.maggie?.angry ? angryImage : dafaultImage as image"
+      class="maggie__image"
+      [lazyLoad]="image"
+      [@fadeInOut]="image">
+
+    <popup
+      *ngIf="context.step?.maggie?.text as text"
+      class="maggie__text"
+      [text]="text"
+      alignment="bottom"
+      caretOffset="45%"
+      [isVisible]="true"></popup>
   </div>
 </ng-container>

@@ -19,24 +19,24 @@ interface PageStep {
 const stepsArray: PageStep[] = [
   {
     name: 'default',
-    button: 'You\'re right, I\'m coller!',
+    button: 'Yes!',
     maggie: {
-      text: 'Hi, I finally got to meet you! My dad told me a lot of cool things about you, and now I think you might be even cooler than me!',
+      text: 'Hi, I finally got to meet you!<br>But first of all, will you be my dad\'s valentine?🥺🥺🥺',
     }
   },
   {
     name: 'angry',
     button: 'Okay!',
     maggie: {
-      text: 'You know I need my dad right now, so you won\'t get to spend this Valentine\'s Day together, but that\'s not all!',
+      text: 'You know I need my dad right now, so you won\'t get to spend this Valentine\'s Day together, and I\'m not sorry!',
       angry: true,
     }
   },
   {
     name: 'compliments',
-    button: 'What\'s next?',
+    button: 'Oh, come on, what\'s next?',
     maggie: {
-      text: 'Wow, you really are awesome, now I totally get my dad... My dad must be really sad that you\'re not around because he loves you so much 😔',
+      text: 'Wait, wooooow, you really are awesome, now I totally get my dad... My dad loves you so much, he must be really sad that you\'re not around 😔',
       eyes: '❤️',
     }
   },
@@ -57,7 +57,7 @@ const stepsArray: PageStep[] = [
   {
     name: 'result',
     maggie: {
-      text: 'You did it! All right, here\'s your ticket... Really hope to see you and your dogs someday, byeee'
+      text: 'You did it! All right, here\'s your ticket... Really hope to see you and your dogs someday, byeee<br>And remember: my dad loves you with his full sick heart ❤️ Please love him back'
     }
   },
 ]
@@ -86,7 +86,7 @@ export class PageFacade {
 
   readonly instagramMode$ = new BehaviorSubject<boolean>(
     localStorage.getItem(this.instagramKey) === 'true'
-  )
+  );
 
   setInstagramMode(enabled = true): void {
     localStorage.setItem(this.instagramKey, JSON.stringify(enabled));

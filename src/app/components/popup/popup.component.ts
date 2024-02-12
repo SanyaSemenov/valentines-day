@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { PopupAlign } from './popup-align';
 import { CommonModule } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
+
+export type PopupAlign = 'top' | 'bottom';
 
 @Component({
 	selector: 'popup',
@@ -8,13 +11,13 @@ import { CommonModule } from '@angular/common';
 	styleUrls: ['./popup.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [CommonModule]
+	imports: [CommonModule],
+	animations: [fadeInOut()],
 })
 export class PopupComponent {
-	constructor() {}
-
-	@Input() public isVisible: boolean = false;
-	@Input() public text: string;
-	@Input() public alignment: PopupAlign = PopupAlign.Top;
-	@Input() public isUpsideDown: boolean = false;
+	@Input() isVisible = false;
+	@Input() text = '';
+	@Input() alignment: PopupAlign = 'top';
+	@Input() isUpsideDown = false;
+	@Input() caretOffset = '50%';
 }

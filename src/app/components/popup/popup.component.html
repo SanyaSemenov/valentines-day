@@ -1,9 +1,9 @@
-<div class="popup__wrapper popup__wrapper--{{alignment}}">
+<div class="popup__wrapper popup__wrapper--{{alignment}}" [@fadeInOut]="text">
 	<div *ngIf="text"
 		class="popup popup--{{alignment}} d-flex justify-content--center"
 		[class.popup--upsideDown]="isUpsideDown"
 		[class.popup--visible]="isVisible">
-		<span [innerHTML]="text"></span>
+		<span [innerHTML]="text" [style.--offset]="caretOffset"></span>
 	</div>
 	<ng-content></ng-content>
 </div>

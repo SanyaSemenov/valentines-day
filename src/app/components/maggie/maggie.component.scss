@@ -1,6 +1,8 @@
 $host: '.maggie';
 
 .maggie {
+  position: relative;
+
   &__image {
     position: relative;
     width: 545px;
@@ -23,5 +25,25 @@ $host: '.maggie';
     border-radius: 50%;
     background-color: rgb(68 0 80 / 40%);
     filter: blur(30px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    &:has(~ .ng-lazyloaded) {
+      opacity: 1;
+    }
+  }
+
+  &__text {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    bottom: 40%;
+    max-width: 550px;
+    width: 100%;
+    transition: bottom 0.2s ease-in-out;
+
+    #{$host}--angry & {
+      bottom: 35%;
+    }
   }
 }

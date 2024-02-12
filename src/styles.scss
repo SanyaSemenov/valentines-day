@@ -3,6 +3,14 @@
 html, body { height: 100%; position: relative; max-height: 100vh; overflow: hidden; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+* {
+  &,
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+}
+
 img {
   transition: opacity 0.3s ease-in-out;
 

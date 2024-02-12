@@ -1,9 +1,21 @@
-<div class="page">
-  <img class="page__bg" [lazyLoad]="bgImage"/>
-  <div class="page__maggie">
-    <maggie></maggie>
-    <button class="btn btn-lg btn-pill btn-main" (click)="facade.nextStep()">Click</button>
+<ng-container
+  *ngIf="{
+    step: facade.step$ | async
+  } as context">
+  <div class="page">
+    <img class="page__bg" [lazyLoad]="bgImage"/>
+    <div class="page__maggie">
+      <maggie
+        class="page__maggie-content"
+        [class.page__maggie-content--small]="context.step?.name === 'compliments'"></maggie>
+      <button
+        *ngIf="context.step?.button as button"
+        class="btn btn-lg btn-pill btn-main"
+        [@fadeInOut]="button"
+        (click)="facade.nextStep()">
+        {{ button }}
+      </button>
+    </div>
   </div>
-</div>
-
+</ng-container>
 <flying-hearts></flying-hearts>
