@@ -4,6 +4,7 @@ import { PageFacade } from './page.facade';
 import { FlyingHeartsComponent } from '../flying-hearts/flying-hearts.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MaggieComponent } from '../maggie/maggie.component';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'page',
@@ -16,4 +17,6 @@ import { MaggieComponent } from '../maggie/maggie.component';
 })
 export class PageComponent {
   readonly facade = inject(PageFacade);
+
+  readonly bgImage = `${environment.basePath}/assets/bg.jpeg`;
 }
