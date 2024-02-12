@@ -4,10 +4,12 @@
   <div class="maggie" [class.maggie--angry]="context.step?.maggie?.angry">
     <div class="maggie__shadow"></div>
     <img
-      *ngIf="context.step?.maggie?.angry ? angryImage : dafaultImage as image"
+      *ngIf="context.step?.maggie?.angry ? facade.maggieAngry : facade.maggieDefault as image"
       class="maggie__image"
       [lazyLoad]="image"
-      [@fadeInOut]="image">
+      [decode]="true"
+      [@fadeInOut]="image"
+      (onStateChange)="facade.onMaggieState($event)"/>
 
     <popup
       *ngIf="context.step?.maggie?.text as text"

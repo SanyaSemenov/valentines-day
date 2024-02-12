@@ -5,12 +5,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'Watch this';
-
-  ngAfterViewInit(): void {
-    const preloader = document.getElementById('preloader');
-
-    preloader?.classList.add('preloader--hidden');
-  }
 }

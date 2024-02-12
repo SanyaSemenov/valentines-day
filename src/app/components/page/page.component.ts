@@ -6,6 +6,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MaggieComponent } from '../maggie/maggie.component';
 import { environment } from 'src/environment/environment';
 import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
+import { ImageCardComponent } from '../image-card/image-card.component';
 
 @Component({
   selector: 'page',
@@ -13,7 +14,13 @@ import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
   styleUrls: ['./page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, FlyingHeartsComponent, LazyLoadImageModule, MaggieComponent],
+  imports: [
+    CommonModule,
+    FlyingHeartsComponent,
+    ImageCardComponent,
+    LazyLoadImageModule,
+    MaggieComponent
+  ],
   providers: [PageFacade],
   animations: [fadeInOut({ withTransform: false })]
 })

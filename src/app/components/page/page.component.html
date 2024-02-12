@@ -3,7 +3,16 @@
     step: facade.step$ | async
   } as context">
   <div class="page">
-    <img class="page__bg" [lazyLoad]="bgImage"/>
+    <img class="page__bg" [lazyLoad]="bgImage" (onStateChange)="facade.onBgState($event)"/>
+    <image-card
+      class="page__card"
+      [class.page__card--visible]="context.step?.name === 'compliments'"
+      *ngFor="let item of facade.kennyImages"
+      [source]="item.source"
+      [style.--x]="item.x + '%'"
+      [style.--y]="item.y + '%'"
+      [style.--delay]="item.delay + 's'"
+      [style.--rotate]="item.rotate + 'deg'"></image-card>
     <div class="page__maggie">
       <maggie
         class="page__maggie-content"

@@ -1,0 +1,10 @@
+.image-card {
+  border: 16px solid white;
+  box-shadow: 0 5px 15px #be57b9;
+  display: flex;
+
+  img {
+    width: 250px;
+    height: auto;
+  }
+}
