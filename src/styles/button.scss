@@ -1,0 +1,49 @@
+.btn {
+  color: #666;
+  background-color: #EEE;
+  border-color: #EEE;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 40px;
+  height: 40px;
+  padding: 0 40px;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: .3s;
+  transition-duration: .3s;
+
+  &-pill {
+    border-radius: 200px;
+  }
+
+  &-main {
+    background-color: #de7fda;
+    border-color: #de7fda;
+    color: white;
+    position: relative;
+    top: 0;
+    box-shadow: 0 11px 0 #be57b9, 0 18px 13px rgb(111 0 131 / 50%);
+    line-height: 60px;
+    height: 60px;
+    padding: 0 80px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+
+    &:active {
+      top: 8px;
+      background-color: #d174cd;
+      border-color: #d174cd;
+      box-shadow: 0 4px 0 #a73ca1, 0 8px 8px rgb(111 0 131 / 50%);
+    }
+  }
+}

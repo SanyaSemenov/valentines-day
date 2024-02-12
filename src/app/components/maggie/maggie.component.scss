@@ -1,0 +1,27 @@
+$host: '.maggie';
+
+.maggie {
+  &__image {
+    position: relative;
+    width: 545px;
+    height: 638px;
+
+    #{$host}--angry {
+      width: 403px;
+      height: 517px;
+    }
+  }
+
+  &__shadow {
+    position: absolute;
+    display: block;
+    left: 55%;
+    bottom: 80px;
+    width: 80%;
+    height: 20%;
+    transform: translateX(-50%) rotate(-15deg);
+    border-radius: 50%;
+    background-color: rgb(68 0 80 / 40%);
+    filter: blur(30px);
+  }
+}

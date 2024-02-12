@@ -1,0 +1,8 @@
+<ng-container *ngIf="{
+  step: facade.step$ | async
+} as context">
+  <div class="maggie">
+    <div class="maggie__shadow"></div>
+    <img class="maggie__image" [lazyLoad]="context.step?.maggie?.angry ? '/assets/maggie-angry.png' : '/assets/maggie-default.png'">
+  </div>
+</ng-container>

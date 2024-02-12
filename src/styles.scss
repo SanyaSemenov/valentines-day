@@ -1,7 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; position: relative; }
+html, body { height: 100%; position: relative; max-height: 100vh; overflow: hidden; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+img {
+  transition: opacity 0.3s ease-in-out;
+
+  &.ng-lazyloading {
+    opacity: 0;
+  }
+
+  &.ng-failed-lazyloaded,
+  &.ng-lazyloaded {
+    opacity: 1;
+  }
+}
 
 .preloader {
   height: 100%;

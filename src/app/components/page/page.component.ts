@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { PageFacade } from './page.facade';
 import { FlyingHeartsComponent } from '../flying-hearts/flying-hearts.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { MaggieComponent } from '../maggie/maggie.component';
 
 @Component({
   selector: 'page',
@@ -10,7 +11,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
   styleUrls: ['./page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, FlyingHeartsComponent, LazyLoadImageModule],
+  imports: [CommonModule, FlyingHeartsComponent, LazyLoadImageModule, MaggieComponent],
   providers: [PageFacade],
 })
 export class PageComponent {
