@@ -17,10 +17,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition-property: all;
-  transition-property: all;
-  -webkit-transition-duration: .3s;
-  transition-duration: .3s;
+  transition: all 0.3s ease-in-out;
 
   &-pill {
     border-radius: 200px;
@@ -46,5 +43,13 @@
       border-color: #d174cd;
       box-shadow: 0 4px 0 #a73ca1, 0 8px 8px rgb(111 0 131 / 50%);
     }
+  }
+
+  &[disabled] {
+    background-color: #cbb8cb;
+    border-color: #cbb8cb;
+    pointer-events: none;
+    cursor: not-allowed;
+    box-shadow: 0 11px 0 #bca5bb, 0 18px 13px rgba(128, 118, 129, 0.5);
   }
 }

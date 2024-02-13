@@ -32,6 +32,7 @@
       <button
         *ngIf="context.step?.button as button"
         class="btn btn-lg btn-pill btn-main"
+        [disabled]="context.step?.name === 'options' && optionsNotChecked"
         [@fadeInOut]="button"
         (click)="next()">
         {{ button }}

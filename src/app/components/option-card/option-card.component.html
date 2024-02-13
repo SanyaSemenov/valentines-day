@@ -21,8 +21,11 @@
         <img class="option-card__image" [lazyLoad]="option.source">
       </ng-template>
 
-      <div *ngIf="option.checked" class="option-card__overlay">
-        <div class="option-card__check"></div>
+      <div
+        *ngIf="option.checked"
+        class="option-card__overlay"
+        [@fadeInOut]="option.checked">
+        <div class="option-card__check">♥</div>
       </div>
     </div>
 

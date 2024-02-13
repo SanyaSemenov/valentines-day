@@ -76,7 +76,7 @@ const stepsArray: PageStep[] = [
     name: 'options',
     button: 'I\'m sure',
     maggie: {
-      text: 'Okay, now it\'s time to choose how you want to spend Valentine\'s Day with my dad when you see him!<br>Choose carefully (although who am I lying to, you\'ll try everything anyway)',
+      text: 'Okay, now it\'s time to choose how you want to spend Valentine\'s Day with my dad when you see him!<br>Select carefully (although who am I lying to, you\'ll try everything anyway)',
     }
   },
   {

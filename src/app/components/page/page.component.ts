@@ -33,7 +33,12 @@ export class PageComponent {
   readonly bgImage = `${environment.basePath}/assets/bg.jpeg`;
   readonly optionsStep$ = new BehaviorSubject(false);
 
+  get optionsNotChecked() {
+    return !this.facade.options.some(x => x.checked)
+  }
+
   next(): void {
+    this.optionsStep$.next(false);
     this.facade.nextStep();
 
     setTimeout(() => {
