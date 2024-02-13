@@ -167,6 +167,7 @@ const options: Option[] = [
 })
 export class PageFacade {
   readonly instagramKey = 'instagramMode';
+  readonly resultKey = 'valentinesResult';
   readonly firstStep = buildLinedSteps();
   readonly secretControl = new FormControl();
   readonly step$ = new BehaviorSubject<PageStep>(this.firstStep);
@@ -197,6 +198,7 @@ export class PageFacade {
   preloadedVideos: HTMLSourceElement[] = [];
 
   constructor() {
+    this.initResult();
     this.checkScreen();
     this.preloadImages();
     this.preloadVideos();
@@ -208,8 +210,17 @@ export class PageFacade {
   }
 
   nextStep(): void {
+    if (this.step$.getValue()?.name === 'result') {
+      this.reset();
+      return;
+    }
+
     if (this.step$.value.next) {
       this.step$.next(this.step$.value.next);
+    }
+
+    if (this.step$.value.name === 'result') {
+      localStorage.setItem(this.resultKey, this.options.filter(x => x.checked).map(x => x.key).join(','))
     }
   }
 
@@ -228,10 +239,22 @@ export class PageFacade {
   }
 
   reset() {
+    localStorage.removeItem(this.resultKey);
     this.options = [
       ...this.options.map(x => ({...x, checked: false}))
     ];
     this.step$.next(this.firstStep);
+  }
+
+  private initResult() {
+    const result: Set<string> = new Set((localStorage.getItem(this.resultKey) || '').split(',').filter(Boolean))
+
+    if (result?.size) {
+      this.options = [
+        ...this.options.map((option) => result.has(option.key) ? {...option, checked: true} : option)
+      ];
+      this.step$.next(stepsArray[0]);
+    }
   }
 
   private removePreloader(): void {
@@ -310,7 +333,7 @@ export class PageFacade {
       .subscribe(() => {
         const preloader = document.getElementById('preloader');
 
-        if (window.innerWidth < 900) {
+        if (window.innerWidth < 900 || window.innerHeight < 800) {
           preloader?.classList.add('preloader--error');
         } else {
           preloader?.classList.remove('preloader--error');

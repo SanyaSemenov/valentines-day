@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { PageFacade } from './page.facade';
 import { FlyingHeartsComponent } from '../flying-hearts/flying-hearts.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -26,7 +26,7 @@ import { BehaviorSubject } from 'rxjs';
   ],
   animations: [fadeInOut({ withTransform: false })]
 })
-export class PageComponent {
+export class PageComponent implements AfterViewInit {
   readonly facade = inject(PageFacade);
 
   readonly bgImage = `${environment.basePath}/assets/bg.jpeg`;
@@ -41,12 +41,13 @@ export class PageComponent {
     return this.facade.options.filter(x => x.checked).map(x => x.hash).join('_');
   }
 
-  next(): void {
-    if (this.facade.step$.getValue()?.name === 'result') {
-      this.facade.reset();
-      return;
+  ngAfterViewInit(): void {
+    if (this.facade.step$.value?.name === 'result') {
+      setTimeout(() => this.resultStep$.next(true), 500);
     }
+  }
 
+  next(): void {
     this.optionsStep$.next(false);
     this.facade.nextStep();
 
