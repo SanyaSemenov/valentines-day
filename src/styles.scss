@@ -25,6 +25,7 @@ img {
 }
 
 .preloader {
+  top: 0;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -32,36 +33,57 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
   transition: all 0.5s ease-in-out;
   z-index: 1000;
 
-  &--hidden {
+  &--hidden:not(&--error) {
     visibility: hidden;
     opacity: 0;
+    pointer-events: none;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 
   &__image {
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
     animation: preloader 1s ease infinite;
 
-    .prealoader--hidden & {
-      animation-play-state: paused;
+    .preloader--hidden &,
+    .preloader--error & {
+      animation: none;
+    }
+  }
+
+  &__text {
+    display: none;
+    color: #652b63;
+    font-size: 24px;
+    max-width: 400px;
+    line-height: 1.4;
+    text-align: center;
+    padding: 16px;
+
+    .preloader--error & {
+      display: block;
     }
   }
 }
 
 @keyframes preloader {
   0% {
-    transform: scale(1);
+    transform: scale(0.5);
   }
 
   75% {
-    transform: scale(2);
+    transform: scale(1);
   }
 
   100% {
-    transform: scale(1);
+    transform: scale(0.5);
   }
 }

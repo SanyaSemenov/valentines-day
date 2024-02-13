@@ -22,6 +22,10 @@
       [text]="text"
       alignment="bottom"
       caretOffset="45%"
-      [isVisible]="true"></popup>
+      [isVisible]="true">
+      <ng-container *ngIf="context.step?.name === 'secret'">
+        <input class="maggie__input" type="text" [formControl]="facade.secretControl">
+      </ng-container>
+    </popup>
   </div>
 </ng-container>

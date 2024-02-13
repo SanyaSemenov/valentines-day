@@ -2,7 +2,8 @@
   *ngIf="{
     step: facade.step$ | async,
     optionsStep: optionsStep$ | async,
-    resultStep: resultStep$ | async
+    resultStep: resultStep$ | async,
+    secretInvalid: facade.secretInvalid$ | async
   } as context">
   <div class="page">
     <img class="page__bg" [lazyLoad]="bgImage" (onStateChange)="facade.onBgState($event)"/>
@@ -36,7 +37,7 @@
       [style.--x]="'20%'"
       [style.--y]="'0%'"
       [style.--delay]="'0s'"
-      [style.--rotate]="'15deg'"></option-card>
+      [style.--rotate]="'10deg'"></option-card>
     <div class="page__maggie">
       <maggie
         class="page__maggie-content"
@@ -45,7 +46,7 @@
       <button
         *ngIf="context.step?.button as button"
         class="btn btn-lg btn-pill btn-main"
-        [disabled]="context.step?.name === 'options' && optionsNotChecked"
+        [disabled]="(context.step?.name === 'options' && optionsNotChecked) || (context.step?.name === 'secret' && context.secretInvalid)"
         [@fadeInOut]="button"
         (click)="next()">
         {{ button }}

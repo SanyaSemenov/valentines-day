@@ -24,7 +24,6 @@ import { BehaviorSubject } from 'rxjs';
     MaggieComponent,
     OptionCardComponent,
   ],
-  providers: [PageFacade],
   animations: [fadeInOut({ withTransform: false })]
 })
 export class PageComponent {

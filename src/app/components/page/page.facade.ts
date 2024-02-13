@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { StateChange } from "ng-lazyload-image";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, asyncScheduler, fromEvent, map, merge, startWith, throttleTime } from "rxjs";
 import { environment } from "src/environment/environment";
 
 type PageStepType = 'default' | 'angry' | 'compliments' | 'options' | 'secret' | 'result';
@@ -55,7 +56,7 @@ const stepsArray: PageStep[] = [
     name: 'default',
     button: 'Yes!',
     maggie: {
-      text: 'Hi, I finally got to meet you!<br>But first of all, will you be my dad\'s valentine?🥺🥺🥺',
+      text: 'Hi, I finally got to meet you!<br>But first of all, will you be my dad\'s Valentine?🥺🥺🥺',
     }
   },
   {
@@ -85,7 +86,7 @@ const stepsArray: PageStep[] = [
     name: 'secret',
     button: 'Give me my ticket',
     maggie: {
-      text: 'Heheheheh now you have to type secret magic words, or else I will not give you a ticket',
+      text: 'Heheheheh now you have to enter the secret magic words or I won\'t give you a ticket',
     }
   },
   {
@@ -161,10 +162,13 @@ const options: Option[] = [
   }
 ]
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PageFacade {
   readonly instagramKey = 'instagramMode';
   readonly firstStep = buildLinedSteps();
+  readonly secretControl = new FormControl();
   readonly step$ = new BehaviorSubject<PageStep>(this.firstStep);
   readonly bgLoaded$ = new BehaviorSubject(false);
   readonly maggieLoaded$ = new BehaviorSubject(false);
@@ -173,15 +177,27 @@ export class PageFacade {
     localStorage.getItem(this.instagramKey) === 'true'
   );
 
+  secretInvalid$ = this.secretControl.valueChanges
+    .pipe(
+      startWith(''),
+      map((x: string) => {
+        const value = this.removeDuplicates(x.toLowerCase());
+
+        return !value.includes('i love u') && !value.includes('i love you');
+      })
+    )
+
   readonly maggieDefault = `${environment.basePath}/assets/maggie-default.png`;
   readonly maggieAngry = `${environment.basePath}/assets/maggie-angry.png`;
   readonly kennyImages: KennyCard[] = this.buildAnimatedCards(kennyImages);
+
   options: OptionCard[] = this.buildAnimatedCards(options);
 
   prelaodedImages: HTMLImageElement[] = [];
   preloadedVideos: HTMLSourceElement[] = [];
 
   constructor() {
+    this.checkScreen();
     this.preloadImages();
     this.preloadVideos();
   }
@@ -271,5 +287,34 @@ export class PageFacade {
         ...item,
       };
     })
+  }
+
+  private removeDuplicates(input: string) {
+    let result = '';
+    for (let i = 0; i < input.length; i++) {
+        if (input[i] !== input[i + 1]) {
+            result += input[i];
+        }
+    }
+    return result;
+  }
+
+  private checkScreen() {
+    merge(
+      fromEvent(window, 'resize', { passive: true }),
+      screen.orientation
+        ? fromEvent(screen.orientation, 'change', { passive: true })
+        : fromEvent(window, 'orientationchange')
+    )
+      .pipe(throttleTime(100, asyncScheduler, { leading: true, trailing: true}), startWith(0))
+      .subscribe(() => {
+        const preloader = document.getElementById('preloader');
+
+        if (window.innerWidth < 900) {
+          preloader?.classList.add('preloader--error');
+        } else {
+          preloader?.classList.remove('preloader--error');
+        }
+      });
   }
 }

@@ -18,6 +18,5 @@ export class PopupComponent {
 	@Input() isVisible = false;
 	@Input() text = '';
 	@Input() alignment: PopupAlign = 'top';
-	@Input() isUpsideDown = false;
 	@Input() caretOffset = '50%';
 }

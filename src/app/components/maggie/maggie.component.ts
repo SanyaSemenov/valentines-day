@@ -6,6 +6,7 @@ import { environment } from 'src/environment/environment';
 import { PopupComponent } from '../popup/popup.component';
 import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
 import { BehaviorSubject } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'maggie',
@@ -13,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./maggie.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, LazyLoadImageModule, PopupComponent],
+  imports: [CommonModule, LazyLoadImageModule, PopupComponent, ReactiveFormsModule],
   animations: [fadeInOut({ withTransform: false })]
 })
 export class MaggieComponent{

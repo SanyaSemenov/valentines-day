@@ -68,4 +68,22 @@ $host: '.maggie';
       left: calc(48% + 48px);
     }
   }
+
+  &__input {
+    width: 100%;
+    outline: none;
+    padding: 16px 24px;
+    margin-top: 16px;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-radius: 200px;
+    border: 3px solid #652b63;
+    box-shadow: 0 -4px 0 #652b63;
+    border-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    background: #652b6322;
+    padding-top: 12px;
+    color: #652b63;
+  }
 }
