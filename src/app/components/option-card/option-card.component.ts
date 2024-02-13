@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
 import * as QRCode from 'qrcode';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'option-card',
@@ -20,6 +21,8 @@ export class OptionCardComponent implements AfterViewInit {
   @Input() qrValue = '';
 
   videoLoaded$ = new BehaviorSubject(false);
+
+  readonly iconLink = `${environment.basePath}/assets/icon-download.svg`;
 
   @ViewChild('canvasRef', { read: ElementRef }) private canvasRef: ElementRef<HTMLCanvasElement> | undefined;
 
