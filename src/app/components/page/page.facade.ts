@@ -56,7 +56,7 @@ const stepsArray: PageStep[] = [
     name: 'default',
     button: 'Yes!',
     maggie: {
-      text: 'Hi, I finally got to meet you!<br>But first of all, will you be my dad\'s Valentine?🥺🥺🥺',
+      text: 'Hi, I finally got to meet you!<br>But first of all, will you be my dad\'s Valentine?❤️❤️❤️',
     }
   },
   {
@@ -240,6 +240,7 @@ export class PageFacade {
 
   reset() {
     localStorage.removeItem(this.resultKey);
+    this.secretControl.reset();
     this.options = [
       ...this.options.map(x => ({...x, checked: false}))
     ];
