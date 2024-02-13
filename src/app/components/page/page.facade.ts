@@ -182,8 +182,11 @@ export class PageFacade {
     .pipe(
       startWith(''),
       map((x: string) => {
-        const value = this.removeDuplicates(x.toLowerCase());
+        if (!x) {
+          return true;
+        }
 
+        const value = this.removeDuplicates(x.toLowerCase());
         return !value.includes('i love u') && !value.includes('i love you');
       })
     )
