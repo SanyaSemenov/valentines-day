@@ -18,6 +18,36 @@ interface PageStep {
   next?: PageStep;
 }
 
+export type BaseCard = {
+  x: number;
+  y: number;
+  delay: number;
+  rotate: number;
+}
+
+export type KennyCard = BaseCard & {
+  source: string;
+}
+
+type OptionType = 'active' | 'beach' | 'extreme' | 'food' | 'lovely';
+
+export type Option = {
+    type: 'image';
+    source: string;
+    key: OptionType;
+    name: string;
+    checked?: boolean;
+} | {
+    type: 'video';
+    source: string;
+    key: OptionType;
+    videoType: string;
+    name: string;
+    checked?: boolean;
+}
+
+export type OptionCard = BaseCard & Option; 
+
 const stepsArray: PageStep[] = [
   {
     name: 'default',
@@ -70,7 +100,7 @@ const kennyImages = [
   '/assets/baby3.webp',
   '/assets/baby4.webp',
   '/assets/baby5.webp',
-].map((image) => `${environment.basePath}${image}`);
+].map((image) => ({ source: `${environment.basePath}${image}` }));
 
 const buildLinedSteps = () => {
   const reverseSteps = stepsArray.reverse();
@@ -88,6 +118,41 @@ const buildLinedSteps = () => {
   }, null as unknown as PageStep);
 }
 
+const options: Option[] = [
+  {
+    type: 'image',
+    source: `${environment.basePath}/assets/option_active.jpeg`,
+    key: 'active',
+    name: 'Another cool activity'
+  },
+  {
+    type: 'image',
+    source: `${environment.basePath}/assets/option_beach.jpg`,
+    key: 'beach',
+    name: 'Cute picnic date on a sunset'
+  },
+  {
+    type: 'video',
+    source: `${environment.basePath}/assets/option_extreme.mp4`,
+    key: 'extreme',
+    videoType: 'video/mp4',
+    name: 'Something extreme'
+  },
+  {
+    type: 'image',
+    source: `${environment.basePath}/assets/option_food.jpeg`,
+    key: 'food',
+    name: 'Nice place with delicious food'
+  },
+  {
+    type: 'video',
+    source: `${environment.basePath}/assets/option_lovely.webm`,
+    key: 'lovely',
+    videoType: 'video/webm',
+    name: 'Private trip for the whole day'
+  }
+]
+
 @Injectable()
 export class PageFacade {
   readonly instagramKey = 'instagramMode';
@@ -102,11 +167,15 @@ export class PageFacade {
 
   readonly maggieDefault = `${environment.basePath}/assets/maggie-default.png`;
   readonly maggieAngry = `${environment.basePath}/assets/maggie-angry.png`;
-  readonly kennyImages = this.buildKennyImages();
+  readonly kennyImages: KennyCard[] = this.buildAnimatedCards(kennyImages);
+  readonly options: OptionCard[] = this.buildAnimatedCards(options);
+
   prelaodedImages: HTMLImageElement[] = [];
+  preloadedVideos: HTMLSourceElement[] = [];
 
   constructor() {
     this.preloadImages();
+    this.preloadVideos();
   }
 
   setInstagramMode(enabled = true): void {
@@ -145,7 +214,8 @@ export class PageFacade {
   private preloadImages(): void {
     const sources = [
       this.maggieAngry,
-      ...kennyImages
+      ...kennyImages.map(x => x.source),
+      ...options.filter(x => x.type === 'image').map(x => x.source)
     ];
 
     this.prelaodedImages = sources.map((source) => {
@@ -155,14 +225,24 @@ export class PageFacade {
     })
   }
 
-  private buildKennyImages() {
-    return kennyImages.map((source, index) => {
+  private preloadVideos() {
+    this.preloadedVideos = options.filter(x => x.type === 'video').map((item) => {
+      var video = document.createElement('source');
+
+      video.src = item.source;
+      item.type === 'video' && (video.type = item.videoType);
+      return video;
+    })
+  }
+
+  private buildAnimatedCards<T extends object>(sources: Array<T>): Array<BaseCard & T> {
+    return sources.map((item, index) => {
       let distance = 40;
       let angle = (Math.PI / 4) - index * Math.PI / (180 / 67.5);
-      if (index === 1) {
+      if (index <= 1) {
         angle -= Math.PI / 12;
       }
-      if (index === 3) {
+      if (index >= 3) {
         angle += Math.PI / 12;
       }
       if (index === 2) {
@@ -173,7 +253,7 @@ export class PageFacade {
         y: Math.sin(angle) * distance,
         delay: index * 0.2,
         rotate: (Math.random() * 2 - 1) * (Math.random() * 10 + 10),
-        source,
+        ...item,
       };
     })
   }

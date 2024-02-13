@@ -42,6 +42,7 @@
     transition-delay: var(--delay);
     
     &--visible {
+      pointer-events: unset;
       opacity: 1;
       left: calc(50% + var(--x));
       top: calc(50% + var(--y));

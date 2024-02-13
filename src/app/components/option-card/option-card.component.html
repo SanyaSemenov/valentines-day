@@ -1,0 +1,33 @@
+<ng-container *ngIf="option">
+  <div class="option-card" (click)="option.checked = !option.checked">
+    <div class="option-card__container">
+      <ng-container *ngIf="option.type === 'video'; else imageTmp">
+        <video
+          class="option-card__video"
+          playsinline
+          defaultMuted
+          preload="auto"
+          disablePictureInPicture
+          loop
+          [class.option-card__video--loaded]="videoLoaded$ | async"
+          [autoplay]="true"
+          [muted]="'muted'"
+          (loadeddata)="videoLoaded$.next(true)">
+        <source [src]="option.source" [type]="option.videoType" />
+      </video>
+      </ng-container>
+
+      <ng-template #imageTmp>
+        <img class="option-card__image" [lazyLoad]="option.source">
+      </ng-template>
+
+      <div *ngIf="option.checked" class="option-card__overlay">
+        <div class="option-card__check"></div>
+      </div>
+    </div>
+
+    <div class="option-card__text">
+      {{ option.name }}
+    </div>
+  </div>
+</ng-container>

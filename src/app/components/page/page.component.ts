@@ -7,6 +7,8 @@ import { MaggieComponent } from '../maggie/maggie.component';
 import { environment } from 'src/environment/environment';
 import { fadeInOut } from 'src/app/animations/fade-in-out.animation';
 import { ImageCardComponent } from '../image-card/image-card.component';
+import { OptionCardComponent } from '../option-card/option-card.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'page',
@@ -19,7 +21,8 @@ import { ImageCardComponent } from '../image-card/image-card.component';
     FlyingHeartsComponent,
     ImageCardComponent,
     LazyLoadImageModule,
-    MaggieComponent
+    MaggieComponent,
+    OptionCardComponent,
   ],
   providers: [PageFacade],
   animations: [fadeInOut({ withTransform: false })]
@@ -28,4 +31,15 @@ export class PageComponent {
   readonly facade = inject(PageFacade);
 
   readonly bgImage = `${environment.basePath}/assets/bg.jpeg`;
+  readonly optionsStep$ = new BehaviorSubject(false);
+
+  next(): void {
+    this.facade.nextStep();
+
+    setTimeout(() => {
+      if (this.facade.step$.value?.name === 'options') {
+        this.optionsStep$.next(true);
+      }
+    }, 1000);
+  }
 }
