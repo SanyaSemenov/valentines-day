@@ -1,7 +1,8 @@
 <ng-container
   *ngIf="{
     step: facade.step$ | async,
-    optionsStep: optionsStep$ | async
+    optionsStep: optionsStep$ | async,
+    resultStep: resultStep$ | async
   } as context">
   <div class="page">
     <img class="page__bg" [lazyLoad]="bgImage" (onStateChange)="facade.onBgState($event)"/>
@@ -25,9 +26,21 @@
       [style.--y]="item.y + '%'"
       [style.--delay]="0.2 + item.delay + 's'"
       [style.--rotate]="item.rotate + 'deg'"></option-card>
+
+    <option-card
+      *ngIf="context.step?.name === 'result'"
+      class="page__card"
+      [style.z-index]="context.resultStep ? 3 : 'unset'"
+      [qrValue]="qrValue"
+      [class.page__card--visible]="context.resultStep"
+      [style.--x]="'20%'"
+      [style.--y]="'0%'"
+      [style.--delay]="'0s'"
+      [style.--rotate]="'15deg'"></option-card>
     <div class="page__maggie">
       <maggie
         class="page__maggie-content"
+        [class.page__maggie-content--left]="context.step?.name === 'result'"
         [class.page__maggie-content--small]="['compliments', 'options'].includes(context.step?.name || '')"></maggie>
       <button
         *ngIf="context.step?.button as button"

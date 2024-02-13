@@ -32,19 +32,31 @@ export class PageComponent {
 
   readonly bgImage = `${environment.basePath}/assets/bg.jpeg`;
   readonly optionsStep$ = new BehaviorSubject(false);
+  readonly resultStep$ = new BehaviorSubject(false);
 
   get optionsNotChecked() {
     return !this.facade.options.some(x => x.checked)
   }
 
+  get qrValue() {
+    return this.facade.options.filter(x => x.checked).map(x => x.hash).join('_');
+  }
+
   next(): void {
+    if (this.facade.step$.getValue()?.name === 'result') {
+      this.facade.reset();
+      return;
+    }
+
     this.optionsStep$.next(false);
     this.facade.nextStep();
 
-    setTimeout(() => {
-      if (this.facade.step$.value?.name === 'options') {
-        this.optionsStep$.next(true);
-      }
-    }, 1000);
+    if (this.facade.step$.value?.name === 'options') {
+      setTimeout(() => this.optionsStep$.next(true), 1000);
+    }
+
+    if (this.facade.step$.value?.name === 'result') {
+      setTimeout(() => this.resultStep$.next(true), 500);
+    }
   }
 }

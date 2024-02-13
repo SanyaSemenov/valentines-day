@@ -29,6 +29,11 @@
       transform-origin: bottom;
       transform: scale(0.6);
     }
+
+    &--left {
+      transform-origin: bottom;
+      transform: translateX(-40%) scale(0.9);
+    }
   }
 
   &__card {

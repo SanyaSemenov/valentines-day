@@ -33,12 +33,14 @@ type OptionType = 'active' | 'beach' | 'extreme' | 'food' | 'lovely';
 
 export type Option = {
     type: 'image';
+    hash: string;
     source: string;
     key: OptionType;
     name: string;
     checked?: boolean;
 } | {
     type: 'video';
+    hash: string;
     source: string;
     key: OptionType;
     videoType: string;
@@ -88,6 +90,7 @@ const stepsArray: PageStep[] = [
   },
   {
     name: 'result',
+    button: 'Try again',
     maggie: {
       text: 'You did it! All right, here\'s your ticket... Really hope to see you and your dogs someday, byeee<br>And remember: my dad loves you with his full sick heart ❤️ Please love him back'
     }
@@ -121,18 +124,21 @@ const buildLinedSteps = () => {
 const options: Option[] = [
   {
     type: 'image',
+    hash: '1fak23gf7',
     source: `${environment.basePath}/assets/option_active.jpeg`,
     key: 'active',
     name: 'Another cool activity'
   },
   {
     type: 'image',
+    hash: '4kj0a6gm3',
     source: `${environment.basePath}/assets/option_beach.jpg`,
     key: 'beach',
     name: 'Cute picnic date on a sunset'
   },
   {
     type: 'video',
+    hash: '64kjda63d',
     source: `${environment.basePath}/assets/option_extreme.mp4`,
     key: 'extreme',
     videoType: 'video/mp4',
@@ -140,12 +146,14 @@ const options: Option[] = [
   },
   {
     type: 'image',
+    hash: '8s7gjexmi',
     source: `${environment.basePath}/assets/option_food.jpeg`,
     key: 'food',
     name: 'Nice place with delicious food'
   },
   {
     type: 'video',
+    hash: '0kaj64bl5',
     source: `${environment.basePath}/assets/option_lovely.webm`,
     key: 'lovely',
     videoType: 'video/webm',
@@ -168,7 +176,7 @@ export class PageFacade {
   readonly maggieDefault = `${environment.basePath}/assets/maggie-default.png`;
   readonly maggieAngry = `${environment.basePath}/assets/maggie-angry.png`;
   readonly kennyImages: KennyCard[] = this.buildAnimatedCards(kennyImages);
-  readonly options: OptionCard[] = this.buildAnimatedCards(options);
+  options: OptionCard[] = this.buildAnimatedCards(options);
 
   prelaodedImages: HTMLImageElement[] = [];
   preloadedVideos: HTMLSourceElement[] = [];
@@ -201,6 +209,13 @@ export class PageFacade {
       this.maggieLoaded$.next(true);
       this.removePreloader();
     }
+  }
+
+  reset() {
+    this.options = [
+      ...this.options.map(x => ({...x, checked: false}))
+    ];
+    this.step$.next(this.firstStep);
   }
 
   private removePreloader(): void {

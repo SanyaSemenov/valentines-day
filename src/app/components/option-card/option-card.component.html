@@ -1,4 +1,4 @@
-<ng-container *ngIf="option">
+<ng-container *ngIf="option; else qrCodeTmp">
   <div class="option-card" (click)="option.checked = !option.checked">
     <div class="option-card__container">
       <ng-container *ngIf="option.type === 'video'; else imageTmp">
@@ -34,3 +34,20 @@
     </div>
   </div>
 </ng-container>
+
+<ng-template #qrCodeTmp>
+  <div class="option-card option-card--qr" (click)="download()">
+    <div class="option-card__container">
+      <canvas #canvasRef class="option-card__image"></canvas>
+
+      <div class="option-card__overlay option-card__overlay--hover">
+        <div class="option-card__icon">
+          <img src="/assets/icon-download.svg">
+        </div>
+      </div>
+    </div>
+    <div class="option-card__text">
+      valentine's day ticket for Kenny
+    </div>
+  </div>
+</ng-template>
